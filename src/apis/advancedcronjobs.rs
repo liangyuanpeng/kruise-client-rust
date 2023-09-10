@@ -25,8 +25,6 @@ pub struct AdvancedCronJobSpec {
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "successfulJobsHistoryLimit")]
     pub successful_jobs_history_limit: Option<i32>,
     pub template: AdvancedCronJobTemplate,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "timeZone")]
-    pub time_zone: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

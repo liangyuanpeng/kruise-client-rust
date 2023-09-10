@@ -64,20 +64,12 @@ pub struct UnitedDeploymentTemplateAdvancedStatefulSetTemplate {
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpec {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub lifecycle: Option<UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecLifecycle>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "persistentVolumeClaimRetentionPolicy")]
-    pub persistent_volume_claim_retention_policy: Option<UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecPersistentVolumeClaimRetentionPolicy>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "podManagementPolicy")]
     pub pod_management_policy: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub replicas: Option<i32>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "reserveOrdinals")]
-    pub reserve_ordinals: Option<Vec<i64>>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "revisionHistoryLimit")]
     pub revision_history_limit: Option<i32>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "scaleStrategy")]
-    pub scale_strategy: Option<UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecScaleStrategy>,
     pub selector: UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecSelector,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "serviceName")]
     pub service_name: Option<String>,
@@ -86,60 +78,6 @@ pub struct UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpec {
     pub update_strategy: Option<UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecUpdateStrategy>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "volumeClaimTemplates")]
     pub volume_claim_templates: Option<HashMap<String, serde_json::Value>>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecLifecycle {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "inPlaceUpdate")]
-    pub in_place_update: Option<UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecLifecycleInPlaceUpdate>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "preDelete")]
-    pub pre_delete: Option<UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecLifecyclePreDelete>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "preNormal")]
-    pub pre_normal: Option<UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecLifecyclePreNormal>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecLifecycleInPlaceUpdate {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "finalizersHandler")]
-    pub finalizers_handler: Option<Vec<String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
-    pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecLifecyclePreDelete {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "finalizersHandler")]
-    pub finalizers_handler: Option<Vec<String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
-    pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecLifecyclePreNormal {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "finalizersHandler")]
-    pub finalizers_handler: Option<Vec<String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
-    pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecPersistentVolumeClaimRetentionPolicy {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "whenDeleted")]
-    pub when_deleted: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "whenScaled")]
-    pub when_scaled: Option<String>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct UnitedDeploymentTemplateAdvancedStatefulSetTemplateSpecScaleStrategy {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "maxUnavailable")]
-    pub max_unavailable: Option<IntOrString>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -266,8 +204,6 @@ pub struct UnitedDeploymentTemplateCloneSetTemplateSpecLifecycle {
     pub in_place_update: Option<UnitedDeploymentTemplateCloneSetTemplateSpecLifecycleInPlaceUpdate>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "preDelete")]
     pub pre_delete: Option<UnitedDeploymentTemplateCloneSetTemplateSpecLifecyclePreDelete>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "preNormal")]
-    pub pre_normal: Option<UnitedDeploymentTemplateCloneSetTemplateSpecLifecyclePreNormal>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -276,8 +212,6 @@ pub struct UnitedDeploymentTemplateCloneSetTemplateSpecLifecycleInPlaceUpdate {
     pub finalizers_handler: Option<Vec<String>>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
     pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -286,24 +220,10 @@ pub struct UnitedDeploymentTemplateCloneSetTemplateSpecLifecyclePreDelete {
     pub finalizers_handler: Option<Vec<String>>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
     pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct UnitedDeploymentTemplateCloneSetTemplateSpecLifecyclePreNormal {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "finalizersHandler")]
-    pub finalizers_handler: Option<Vec<String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
-    pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct UnitedDeploymentTemplateCloneSetTemplateSpecScaleStrategy {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "disablePVCReuse")]
-    pub disable_pvc_reuse: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "maxUnavailable")]
     pub max_unavailable: Option<IntOrString>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "podsToDelete")]
@@ -421,8 +341,6 @@ pub struct UnitedDeploymentTopologySubsets {
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "nodeSelectorTerm")]
     pub node_selector_term: Option<UnitedDeploymentTopologySubsetsNodeSelectorTerm>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub patch: Option<HashMap<String, serde_json::Value>>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub replicas: Option<IntOrString>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tolerations: Option<Vec<UnitedDeploymentTopologySubsetsTolerations>>,
@@ -488,8 +406,6 @@ pub struct UnitedDeploymentStatus {
     pub conditions: Option<Vec<UnitedDeploymentStatusConditions>>,
     #[serde(rename = "currentRevision")]
     pub current_revision: String,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelSelector")]
-    pub label_selector: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "observedGeneration")]
     pub observed_generation: Option<i64>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "readyReplicas")]

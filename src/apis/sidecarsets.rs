@@ -23,10 +23,6 @@ pub struct SidecarSetSpec {
     pub injection_strategy: Option<SidecarSetInjectionStrategy>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub namespace: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "namespaceSelector")]
-    pub namespace_selector: Option<SidecarSetNamespaceSelector>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "patchPodMetadata")]
-    pub patch_pod_metadata: Option<Vec<SidecarSetPatchPodMetadata>>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "revisionHistoryLimit")]
     pub revision_history_limit: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -151,42 +147,6 @@ pub struct SidecarSetInitContainersUpgradeStrategy {
 pub struct SidecarSetInjectionStrategy {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub paused: Option<bool>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub revision: Option<SidecarSetInjectionStrategyRevision>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct SidecarSetInjectionStrategyRevision {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "customVersion")]
-    pub custom_version: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub policy: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "revisionName")]
-    pub revision_name: Option<String>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct SidecarSetNamespaceSelector {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "matchExpressions")]
-    pub match_expressions: Option<Vec<SidecarSetNamespaceSelectorMatchExpressions>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "matchLabels")]
-    pub match_labels: Option<BTreeMap<String, String>>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct SidecarSetNamespaceSelectorMatchExpressions {
-    pub key: String,
-    pub operator: String,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub values: Option<Vec<String>>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct SidecarSetPatchPodMetadata {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub annotations: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "patchPolicy")]
-    pub patch_policy: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -213,51 +173,12 @@ pub struct SidecarSetUpdateStrategy {
     pub partition: Option<IntOrString>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub paused: Option<bool>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "priorityStrategy")]
-    pub priority_strategy: Option<SidecarSetUpdateStrategyPriorityStrategy>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "scatterStrategy")]
     pub scatter_strategy: Option<Vec<SidecarSetUpdateStrategyScatterStrategy>>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub selector: Option<SidecarSetUpdateStrategySelector>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "type")]
     pub r#type: Option<String>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct SidecarSetUpdateStrategyPriorityStrategy {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "orderPriority")]
-    pub order_priority: Option<Vec<SidecarSetUpdateStrategyPriorityStrategyOrderPriority>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "weightPriority")]
-    pub weight_priority: Option<Vec<SidecarSetUpdateStrategyPriorityStrategyWeightPriority>>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct SidecarSetUpdateStrategyPriorityStrategyOrderPriority {
-    #[serde(rename = "orderedKey")]
-    pub ordered_key: String,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct SidecarSetUpdateStrategyPriorityStrategyWeightPriority {
-    #[serde(rename = "matchSelector")]
-    pub match_selector: SidecarSetUpdateStrategyPriorityStrategyWeightPriorityMatchSelector,
-    pub weight: i32,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct SidecarSetUpdateStrategyPriorityStrategyWeightPriorityMatchSelector {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "matchExpressions")]
-    pub match_expressions: Option<Vec<SidecarSetUpdateStrategyPriorityStrategyWeightPriorityMatchSelectorMatchExpressions>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "matchLabels")]
-    pub match_labels: Option<BTreeMap<String, String>>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct SidecarSetUpdateStrategyPriorityStrategyWeightPriorityMatchSelectorMatchExpressions {
-    pub key: String,
-    pub operator: String,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub values: Option<Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

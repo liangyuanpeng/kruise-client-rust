@@ -102,8 +102,6 @@ pub struct ContainerRecreateRequestContainersStatusContext {
 pub struct ContainerRecreateRequestStrategy {
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "failurePolicy")]
     pub failure_policy: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "forceRecreate")]
-    pub force_recreate: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "minStartedSeconds")]
     pub min_started_seconds: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "orderedRecreate")]
@@ -127,8 +125,6 @@ pub struct ContainerRecreateRequestStatus {
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct ContainerRecreateRequestStatusContainerRecreateStates {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "isKilled")]
-    pub is_killed: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
     pub name: String,

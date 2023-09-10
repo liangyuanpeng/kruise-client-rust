@@ -24,8 +24,6 @@ pub struct ImagePullJobSpec {
     pub pull_policy: Option<ImagePullJobPullPolicy>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "pullSecrets")]
     pub pull_secrets: Option<Vec<String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "sandboxConfig")]
-    pub sandbox_config: Option<ImagePullJobSandboxConfig>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub selector: Option<ImagePullJobSelector>,
 }
@@ -62,14 +60,6 @@ pub struct ImagePullJobPullPolicy {
     pub backoff_limit: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "timeoutSeconds")]
     pub timeout_seconds: Option<i32>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct ImagePullJobSandboxConfig {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub annotations: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub labels: Option<BTreeMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

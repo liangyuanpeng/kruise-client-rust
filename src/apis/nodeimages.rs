@@ -19,8 +19,6 @@ pub struct NodeImageSpec {
 pub struct NodeImageImages {
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "pullSecrets")]
     pub pull_secrets: Option<Vec<NodeImageImagesPullSecrets>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "sandboxConfig")]
-    pub sandbox_config: Option<NodeImageImagesSandboxConfig>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<NodeImageImagesTags>>,
 }
@@ -31,14 +29,6 @@ pub struct NodeImageImagesPullSecrets {
     pub name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub namespace: Option<String>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct NodeImageImagesSandboxConfig {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub annotations: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub labels: Option<BTreeMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

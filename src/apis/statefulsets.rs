@@ -16,8 +16,6 @@ use k8s_openapi::apimachinery::pkg::util::intstr::IntOrString;
 pub struct StatefulSetSpec {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub lifecycle: Option<StatefulSetLifecycle>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "persistentVolumeClaimRetentionPolicy")]
-    pub persistent_volume_claim_retention_policy: Option<StatefulSetPersistentVolumeClaimRetentionPolicy>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "podManagementPolicy")]
     pub pod_management_policy: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -44,8 +42,6 @@ pub struct StatefulSetLifecycle {
     pub in_place_update: Option<StatefulSetLifecycleInPlaceUpdate>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "preDelete")]
     pub pre_delete: Option<StatefulSetLifecyclePreDelete>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "preNormal")]
-    pub pre_normal: Option<StatefulSetLifecyclePreNormal>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -54,8 +50,6 @@ pub struct StatefulSetLifecycleInPlaceUpdate {
     pub finalizers_handler: Option<Vec<String>>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
     pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -64,26 +58,6 @@ pub struct StatefulSetLifecyclePreDelete {
     pub finalizers_handler: Option<Vec<String>>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
     pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct StatefulSetLifecyclePreNormal {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "finalizersHandler")]
-    pub finalizers_handler: Option<Vec<String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
-    pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct StatefulSetPersistentVolumeClaimRetentionPolicy {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "whenDeleted")]
-    pub when_deleted: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "whenScaled")]
-    pub when_scaled: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -204,10 +178,6 @@ pub struct StatefulSetStatus {
     pub replicas: i32,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "updateRevision")]
     pub update_revision: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "updatedAvailableReplicas")]
-    pub updated_available_replicas: Option<i32>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "updatedReadyReplicas")]
-    pub updated_ready_replicas: Option<i32>,
     #[serde(rename = "updatedReplicas")]
     pub updated_replicas: i32,
 }

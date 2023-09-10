@@ -16,8 +16,6 @@ use k8s_openapi::apimachinery::pkg::util::intstr::IntOrString;
 pub struct DaemonSetSpec {
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "burstReplicas")]
     pub burst_replicas: Option<IntOrString>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub lifecycle: Option<DaemonSetLifecycle>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "minReadySeconds")]
     pub min_ready_seconds: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "revisionHistoryLimit")]
@@ -26,46 +24,6 @@ pub struct DaemonSetSpec {
     pub template: HashMap<String, serde_json::Value>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "updateStrategy")]
     pub update_strategy: Option<DaemonSetUpdateStrategy>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DaemonSetLifecycle {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "inPlaceUpdate")]
-    pub in_place_update: Option<DaemonSetLifecycleInPlaceUpdate>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "preDelete")]
-    pub pre_delete: Option<DaemonSetLifecyclePreDelete>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "preNormal")]
-    pub pre_normal: Option<DaemonSetLifecyclePreNormal>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DaemonSetLifecycleInPlaceUpdate {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "finalizersHandler")]
-    pub finalizers_handler: Option<Vec<String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
-    pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DaemonSetLifecyclePreDelete {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "finalizersHandler")]
-    pub finalizers_handler: Option<Vec<String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
-    pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct DaemonSetLifecyclePreNormal {
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "finalizersHandler")]
-    pub finalizers_handler: Option<Vec<String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "labelsHandler")]
-    pub labels_handler: Option<BTreeMap<String, String>>,
-    #[serde(default, skip_serializing_if = "Option::is_none", rename = "markPodNotReady")]
-    pub mark_pod_not_ready: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
